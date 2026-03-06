@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sangyoon Bae</title>
+  <style>
+    :root {
+      --accent: #3a5a8c;
+      --accent-light: #5b84c4;
+      --text: #222;
+      --muted: #666;
+      --border: #e0e0e0;
+      --bg: #fff;
+      --section-gap: 60px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Nav ───────────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      height: 52px;
+    }
+    nav .brand { font-weight: 700; color: var(--text); font-size: 16px; margin-right: auto; }
+    nav a { color: var(--muted); font-size: 14px; font-weight: 500; }
+    nav a:hover { color: var(--accent); text-decoration: none; }
+
+    /* ── Layout ────────────────────────────────────────── */
+    .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+
+    /* ── Hero / Profile ────────────────────────────────── */
+    #about {
+      padding: 56px 0 48px;
+      display: flex;
+      gap: 40px;
+      align-items: flex-start;
+    }
+    .profile-img {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 3px solid var(--border);
+    }
+    .profile-info h1 { font-size: 28px; font-weight: 700; line-height: 1.2; margin-bottom: 4px; }
+    .profile-info .subtitle {
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: 14px;
+      line-height: 1.5;
+    }
+    .links { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+    .links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 4px 10px;
+      font-size: 13px;
+      color: var(--text);
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .links a:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+    .links a svg { width: 14px; height: 14px; fill: currentColor; flex-shrink: 0; }
+
+    .bio {
+      font-size: 15px;
+      color: var(--text);
+      max-width: 580px;
+      line-height: 1.75;
+    }
+    .bio em { font-style: normal; color: var(--accent); font-weight: 600; }
+
+    /* ── Section ───────────────────────────────────────── */
+    section { padding: var(--section-gap) 0 0; }
+    section:last-of-type { padding-bottom: var(--section-gap); }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 700;
+      border-bottom: 2px solid var(--text);
+      padding-bottom: 6px;
+      margin-bottom: 24px;
+    }
+
+    /* ── News ──────────────────────────────────────────── */
+    .news-list { list-style: none; }
+    .news-list li {
+      display: flex;
+      gap: 16px;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+    }
+    .news-list li:last-child { border-bottom: none; }
+    .news-date { min-width: 56px; color: var(--muted); font-variant-numeric: tabular-nums; font-weight: 600; }
+    .badge {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 3px;
+      padding: 1px 6px;
+      font-size: 11px;
+      font-weight: 700;
+      vertical-align: middle;
+      margin-right: 5px;
+    }
+    .badge.gold { background: #c8860a; }
+    .badge.green { background: #27936a; }
+    .badge.gray { background: #888; }
+
+    /* ── Publications ──────────────────────────────────── */
+    .filter-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+    .filter-btn {
+      border: 1px solid var(--border);
+      background: #f7f7f7;
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.15s;
+      color: var(--muted);
+      font-family: inherit;
+    }
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .pub-list { display: flex; flex-direction: column; gap: 16px; }
+    .pub-card {
+      display: flex;
+      gap: 18px;
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      transition: box-shadow 0.15s;
+    }
+    .pub-card:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+    .pub-thumb {
+      width: 88px;
+      height: 66px;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, #e8eef8, #d0ddf0);
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+    }
+    .pub-body { flex: 1; min-width: 0; }
+    .pub-venue {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+    .year-badge {
+      display: inline-block;
+      background: #f0f4fa;
+      color: var(--accent);
+      border-radius: 3px;
+      padding: 1px 6px;
+      font-size: 11px;
+      font-weight: 600;
+      margin-left: 6px;
+    }
+    .pub-body h3 { font-size: 14.5px; font-weight: 700; line-height: 1.4; margin-bottom: 4px; }
+    .pub-authors { font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+    .pub-authors strong { color: var(--text); }
+    .pub-actions { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+    .pub-actions a {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 9px;
+      font-size: 12px;
+      color: var(--text);
+      transition: all 0.15s;
+    }
+    .pub-actions a:hover { background: var(--accent); border-color: var(--accent); color: #fff; text-decoration: none; }
+    .preprint-label {
+      display: inline-block;
+      border: 1px solid #f0c040;
+      border-radius: 4px;
+      padding: 2px 9px;
+      font-size: 12px;
+      background: #fff8e6;
+      color: #a07010;
+    }
+
+    /* ── Research ──────────────────────────────────────── */
+    .research-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 620px) { .research-grid { grid-template-columns: 1fr; } }
+
+    .research-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 18px;
+      transition: box-shadow 0.15s;
+    }
+    .research-card:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.09); }
+    .research-tag {
+      display: inline-block;
+      background: #f0f4fa;
+      color: var(--accent);
+      border-radius: 3px;
+      padding: 2px 8px;
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      font-family: 'Courier New', monospace;
+    }
+    .research-card h3 { font-size: 14px; font-weight: 700; margin-bottom: 6px; line-height: 1.4; }
+    .research-card p { font-size: 13px; color: var(--muted); line-height: 1.65; }
+    .research-metric {
+      margin-top: 10px;
+      font-size: 12px;
+      color: #27936a;
+      font-weight: 600;
+    }
+
+    /* ── Experience ────────────────────────────────────── */
+    .exp-list { display: flex; flex-direction: column; }
+    .exp-item {
+      display: flex;
+      gap: 20px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .exp-item:last-child { border-bottom: none; }
+    .exp-year { min-width: 48px; font-size: 13px; color: var(--muted); font-weight: 600; padding-top: 2px; }
+    .exp-detail h3 { font-size: 15px; font-weight: 700; margin-bottom: 3px; }
+    .exp-detail .role { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+    /* ── Education ─────────────────────────────────────── */
+    .edu-list { display: flex; flex-direction: column; gap: 20px; }
+    .edu-item { display: flex; gap: 16px; align-items: flex-start; }
+    .edu-dot {
+      width: 10px; height: 10px;
+      background: var(--accent);
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 6px;
+    }
+    .edu-item h3 { font-size: 15px; font-weight: 700; margin-bottom: 3px; }
+    .edu-item p { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+    /* ── Awards ────────────────────────────────────────── */
+    .award-list { list-style: none; }
+    .award-list li {
+      display: flex;
+      gap: 16px;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+      align-items: baseline;
+    }
+    .award-list li:last-child { border-bottom: none; }
+    .award-year { min-width: 56px; color: var(--muted); font-weight: 600; }
+
+    /* ── Footer ────────────────────────────────────────── */
+    footer {
+      text-align: center;
+      padding: 32px 0;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: var(--section-gap);
+    }
+
+    /* ── Responsive ────────────────────────────────────── */
+    @media (max-width: 600px) {
+      #about { flex-direction: column; align-items: center; text-align: center; }
+      .links { justify-content: center; }
+      nav { padding: 0 16px; gap: 14px; overflow-x: auto; }
+      .container { padding: 0 16px; }
+      .pub-thumb { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">Sangyoon Bae</span>
+  <a href="#about">About</a>
+  <a href="#news">News</a>
+  <a href="#publications">Publications</a>
+  <a href="#research">Research</a>
+  <a href="#experience">Experience</a>
+  <a href="#education">Education</a>
+</nav>
+
+<div class="container">
+
+  <!-- ── About ── -->
+  <section id="about">
+    <img class="profile-img" src="Stella.jpg" alt="Sangyoon Bae" />
+    <div class="profile-info">
+      <h1>Sangyoon Bae</h1>
+      <div class="subtitle">
+        Ph.D. Candidate &middot; Interdisciplinary Program in Artificial Intelligence<br>
+        Seoul National University
+      </div>
+      <div class="links">
+        <a href="mailto:stella.sangyoon.bae@gmail.com">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          Email
+        </a>
+        <a href="https://github.com/Sangyoon-Bae" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.04c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.21.08 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.5 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.65.25 2.87.12 3.17.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub
+        </a>
+        <a href="https://linkedin.com/in/stella-sangyoon-bae" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zm1.78 13.02H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45C23.21 24 24 23.23 24 22.28V1.72C24 .77 23.21 0 22.22 0z"/></svg>
+          LinkedIn
+        </a>
+        <a href="Sangyoon_Bae_Resume.pdf" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11zM8 15h8v2H8zm0-4h8v2H8z"/></svg>
+          CV
+        </a>
+      </div>
+      <p class="bio">
+        I work on <em>biology- and physics-grounded representation learning</em> for neuro-AI,
+        imposing strong inductive biases to enable system-aware learning,
+        improving <em>training stability</em>, <em>neural decoding</em>, and <em>causal inference</em>
+        under indirect brain measurements.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── News ── -->
+  <section id="news">
+    <div class="section-title">News</div>
+    <ul class="news-list" id="news-list">
+      <li>
+        <span class="news-date">2026</span>
+        <span><span class="badge">Paper</span> <strong>POYO-CAP</strong> accepted at <strong>ICLR 2026</strong> &mdash; decoding visual experience from calcium imaging via cell-pattern-aware pretraining.</span>
+      </li>
+      <li>
+        <span class="news-date">2026</span>
+        <span><span class="badge">Paper</span> <strong>MBBN</strong> accepted at <strong>Communications Biology</strong> (in press) &mdash; frequency-specific multi-band attention for cognitive and psychiatric fMRI.</span>
+      </li>
+      <li>
+        <span class="news-date">2026</span>
+        <span><span class="badge gray">Preprint</span> <strong>INCAMA</strong> released &mdash; recovering whole-brain causal connectivity under indirect observation. arXiv:2602.09034.</span>
+      </li>
+      <li>
+        <span class="news-date">2025</span>
+        <span><span class="badge gold">Award</span> <strong>Best Paper Award (Co-Author)</strong> at IEEE International Conference on Quantum Computing and Engineering (QCE).</span>
+      </li>
+      <li>
+        <span class="news-date">2025</span>
+        <span><span class="badge">Paper</span> Resting-state fMRI analysis using <strong>Quantum Time-series Transformer</strong> accepted at <strong>IEEE QCE 2025</strong>.</span>
+      </li>
+      <li class="news-extra" style="display:none;">
+        <span class="news-date">2024</span>
+        <span><span class="badge gold">Award</span> IPAI Development Fund Scholarship, Seoul National University.</span>
+      </li>
+      <li class="news-extra" style="display:none;">
+        <span class="news-date">2024</span>
+        <span><span class="badge green">Visit</span> Research visit at <strong>MILA</strong>, working with Prof. Blake Richards on Neuro-AI foundation models.</span>
+      </li>
+      <li class="news-extra" style="display:none;">
+        <span class="news-date">2024</span>
+        <span><span class="badge">Paper</span> <strong>QPATE</strong> published at <strong>ICASSP 2024</strong>.</span>
+      </li>
+      <li class="news-extra" style="display:none;">
+        <span class="news-date">2024</span>
+        <span><span class="badge">Paper</span> <strong>SwiFT</strong> published at <strong>NeurIPS 2024</strong>.</span>
+      </li>
+      <li class="news-extra" style="display:none;">
+        <span class="news-date">2023</span>
+        <span><span class="badge gold">Award</span> Sung-Am Educational Foundation Scholarship, South Korea.</span>
+      </li>
+      <li class="news-extra" style="display:none;">
+        <span class="news-date">2023</span>
+        <span><span class="badge green">Visit</span> Research visit at <strong>Brookhaven National Laboratory</strong> on quantum ML, with Dr. Shinjae Yoo.</span>
+      </li>
+    </ul>
+    <button id="news-toggle" onclick="toggleNews()" style="margin-top:12px; background:none; border:1px solid var(--border); border-radius:4px; padding:5px 14px; font-size:13px; color:var(--muted); cursor:pointer; font-family:inherit;">
+      Show more
+    </button>
+  </section>
+
+  <!-- ── Publications ── -->
+  <section id="publications">
+    <div class="section-title">Publications</div>
+
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterPubs('all', this)">All</button>
+      <button class="filter-btn" onclick="filterPubs('neuro-ai', this)">Neuro-AI</button>
+      <button class="filter-btn" onclick="filterPubs('quantum', this)">Quantum ML</button>
+      <button class="filter-btn" onclick="filterPubs('preprint', this)">Preprints</button>
+    </div>
+
+    <div class="pub-list" id="pub-list">
+
+      <div class="pub-card" data-topic="neuro-ai">
+        <div class="pub-thumb">&#128300;</div>
+        <div class="pub-body">
+          <div class="pub-venue">ICLR 2026<span class="year-badge">2026</span></div>
+          <h3>Decoding Dynamic Visual Experience from Calcium Imaging via Cell-Pattern-Aware Pretraining</h3>
+          <div class="pub-authors"><strong>Bae, S.</strong>, Azabou, M., Richards, B., Cha, J.</div>
+          <div class="pub-actions">
+            <a href="#">paper</a>
+            <a href="#">proceedings</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub-card" data-topic="neuro-ai">
+        <div class="pub-thumb">&#129504;</div>
+        <div class="pub-body">
+          <div class="pub-venue">Communications Biology (in press)<span class="year-badge">2026</span></div>
+          <h3>Spatiotemporal Learning of Brain Dynamics from fMRI Using Frequency-Specific Multi-Band Attention for Cognitive and Psychiatric Applications</h3>
+          <div class="pub-authors"><strong>Bae, S.</strong>, Kwon, J., Cha, J., Yoo, S.</div>
+          <div class="pub-actions">
+            <a href="#">paper</a>
+            <a href="https://arxiv.org/abs/2602.09034" target="_blank">arXiv</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub-card" data-topic="neuro-ai preprint">
+        <div class="pub-thumb">&#128279;</div>
+        <div class="pub-body">
+          <div class="pub-venue">arXiv Preprint<span class="year-badge">2026</span></div>
+          <h3>Recovering Whole Brain Causal Connectivity under Indirect Observation</h3>
+          <div class="pub-authors"><strong>Bae, S.</strong>, Oprescu, M., Park, D., Yoo, S., Cha, J.</div>
+          <div class="pub-actions">
+            <a href="https://arxiv.org/abs/2602.09034" target="_blank">arXiv</a>
+            <span class="preprint-label">Preprint</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub-card" data-topic="quantum neuro-ai">
+        <div class="pub-thumb">&#9883;</div>
+        <div class="pub-body">
+          <div class="pub-venue">IEEE QCE 2025<span class="year-badge">2025</span></div>
+          <h3>Resting-state fMRI Analysis using Quantum Time-series Transformer</h3>
+          <div class="pub-authors">Park, J., <strong>Bae, S.</strong>, Seo, J., Chen, S., Tseng, H., Cha, J. &amp; Yoo, S.</div>
+          <div class="pub-actions">
+            <a href="#">paper</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub-card" data-topic="neuro-ai">
+        <div class="pub-thumb">&#127754;</div>
+        <div class="pub-body">
+          <div class="pub-venue">NeurIPS 2024<span class="year-badge">2024</span></div>
+          <h3>SwiFT: Swin 4D fMRI Transformer</h3>
+          <div class="pub-authors">Kim, P., Kwon, J., Joo, S., <strong>Bae, S.</strong>, Lee, D., Jung, Y., ... &amp; Moon, T.</div>
+          <div class="pub-actions">
+            <a href="#">paper</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub-card" data-topic="quantum">
+        <div class="pub-thumb">&#128272;</div>
+        <div class="pub-body">
+          <div class="pub-venue">ICASSP 2024<span class="year-badge">2024</span></div>
+          <h3>Quantum Privacy Aggregation of Teacher Ensembles (QPATE) for Privacy-preserving Quantum Machine Learning</h3>
+          <div class="pub-authors">Watkins, W., Wang, H., <strong>Bae, S.</strong>, Tseng, H. H., Cha, J., Chen, S. Y. C., &amp; Yoo, S.</div>
+          <div class="pub-actions">
+            <a href="#">paper</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub-card" data-topic="neuro-ai preprint">
+        <div class="pub-thumb">&#128444;</div>
+        <div class="pub-body">
+          <div class="pub-venue">arXiv Preprint<span class="year-badge">2024</span></div>
+          <h3>Macro2Micro: Cross-modal Magnetic Resonance Imaging Synthesis Leveraging Multi-scale Brain Structures</h3>
+          <div class="pub-authors">Kim, S., Kwon, J., Kwon, J., <strong>Bae, S.</strong>, Lin, Y., Yoo, S., &amp; Cha, J.</div>
+          <div class="pub-actions">
+            <a href="https://arxiv.org/abs/2412.11277" target="_blank">arXiv</a>
+            <span class="preprint-label">Preprint</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub-card" data-topic="neuro-ai">
+        <div class="pub-thumb">&#128225;</div>
+        <div class="pub-body">
+          <div class="pub-venue">IBRO Neuroscience Reports 2023<span class="year-badge">2023</span></div>
+          <h3>Resting-state theta phase-gamma amplitude coupling as a biomarker for the transdiagnostic dimensional approach in psychiatric disorders</h3>
+          <div class="pub-authors">Kim, M., Shim, Y., Kwon, J., <strong>Bae, S.</strong>, &hellip; &amp; Kwon, J. S.</div>
+          <div class="pub-actions">
+            <a href="#">paper</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── Research ── -->
+  <section id="research">
+    <div class="section-title">Selected Research</div>
+    <div class="research-grid">
+
+      <div class="research-card">
+        <div class="research-tag">POYO-CAP</div>
+        <h3>Cell-Type-Aware Pretraining for Neural Decoding</h3>
+        <p>Data-centric pretraining strategy accounting for neuron-level statistical heterogeneity in calcium imaging recordings. Prioritizes statistically predictable neurons to stabilize training.</p>
+        <div class="research-metric">SSIM 0.593 (+13%) on visual reconstruction &middot; 4&times;V100</div>
+      </div>
+
+      <div class="research-card">
+        <div class="research-tag">INCAMA</div>
+        <h3>Whole-Brain Causal Connectivity under Indirect Observation</h3>
+        <p>Physics-aware ML framework reconstructing latent neural activity from indirect measurements (fMRI/EEG) before performing directed causal discovery at brain-network scale.</p>
+        <div class="research-metric">~309% higher F1 in causal pathway recovery vs. DL baselines</div>
+      </div>
+
+      <div class="research-card">
+        <div class="research-tag">MBBN</div>
+        <h3>Frequency-Specific Multi-Band Attention for fMRI</h3>
+        <p>Neuroscience-informed transformer modeling multi-scale temporal structure in brain signals, enabling interpretable frequency-dependent connectivity on large clinical datasets.</p>
+        <div class="research-metric">AUROC +41% on ASD classification &middot; 49k+ subjects</div>
+      </div>
+
+      <div class="research-card">
+        <div class="research-tag">PIMSM</div>
+        <h3>Physics-Informed Multi-Scale Neural Decoder</h3>
+        <p>State-space model for streaming neural time-series, robust to acquisition shifts (TR changes, temporal downsampling). Includes a theoretical stability bound for decoder reliability.</p>
+        <div class="research-metric">Strong decoding at 1% supervision &middot; stable with short streaming windows</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── Experience ── -->
+  <section id="experience">
+    <div class="section-title">Work Experience</div>
+    <div class="exp-list">
+
+      <div class="exp-item">
+        <div class="exp-year">2024</div>
+        <div class="exp-detail">
+          <h3>MILA &mdash; Montr&eacute;al Institute of Learning Algorithms</h3>
+          <div class="role">Visiting Researcher &middot; Neuro-AI Foundation Models &amp; Biologically-Grounded Modeling<br>Advised by Prof. Blake Richards</div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-year">2023</div>
+        <div class="exp-detail">
+          <h3>Brookhaven National Laboratory</h3>
+          <div class="role">Visiting Researcher &middot; Quantum Machine Learning Infrastructure<br>Advised by Dr. Shinjae Yoo</div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-year">2022</div>
+        <div class="exp-detail">
+          <h3>Institut de Neurosciences des Syst&egrave;mes, Aix-Marseille Universit&eacute;</h3>
+          <div class="role">Visiting Researcher &middot; Adaptation of The Virtual Brain (TVB) to ADHD Progression<br>Advised by Prof. Viktor Jirsa</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── Education ── -->
+  <section id="education">
+    <div class="section-title">Education</div>
+    <div class="edu-list">
+
+      <div class="edu-item">
+        <div class="edu-dot"></div>
+        <div>
+          <h3>Ph.D. Candidate &mdash; Interdisciplinary Program in Artificial Intelligence</h3>
+          <p>Seoul National University, Seoul, South Korea &nbsp;&middot;&nbsp; September 2021 &ndash; Present</p>
+        </div>
+      </div>
+
+      <div class="edu-item">
+        <div class="edu-dot" style="background:#9ab;"></div>
+        <div>
+          <h3>B.S. &mdash; Biological Sciences</h3>
+          <p>Student-Designed Minor: Computational Neuroscience for Human Behavior and Cognition<br>
+          Seoul National University, Seoul, South Korea &nbsp;&middot;&nbsp; March 2015 &ndash; August 2021</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── Awards ── -->
+  <section id="awards">
+    <div class="section-title">Scholarships &amp; Awards</div>
+    <ul class="award-list">
+      <li>
+        <span class="award-year">2025</span>
+        <span>&#11088; <strong>Best Paper Award (Co-Author)</strong> &mdash; IEEE International Conference on Quantum Computing and Engineering (QCE)</span>
+      </li>
+      <li>
+        <span class="award-year">2024</span>
+        <span>IPAI Development Fund Scholarship &mdash; Seoul National University</span>
+      </li>
+      <li>
+        <span class="award-year">2023</span>
+        <span>Sung-Am Educational Foundation Scholarship &mdash; South Korea</span>
+      </li>
+      <li>
+        <span class="award-year">2021&ndash;23</span>
+        <span>Graduate School of Artificial Intelligence Fellowship &mdash; Seoul National University</span>
+      </li>
+    </ul>
+  </section>
+
+</div>
+
+<footer>
+  <div class="container">
+    Sangyoon Bae &nbsp;&middot;&nbsp;
+    <a href="mailto:stella.sangyoon.bae@gmail.com">stella.sangyoon.bae@gmail.com</a>
+    &nbsp;&middot;&nbsp; Last updated March 2026
+  </div>
+</footer>
+
+<script>
+  // News toggle
+  var newsExpanded = false;
+  function toggleNews() {
+    newsExpanded = !newsExpanded;
+    document.querySelectorAll('.news-extra').forEach(function(el) {
+      el.style.display = newsExpanded ? 'flex' : 'none';
+    });
+    document.getElementById('news-toggle').textContent = newsExpanded ? 'Show less' : 'Show more';
+  }
+
+  // Publication filter
+  function filterPubs(topic, btn) {
+    document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    document.querySelectorAll('.pub-card').forEach(function(card) {
+      var t = card.getAttribute('data-topic') || '';
+      card.style.display = (topic === 'all' || t.includes(topic)) ? 'flex' : 'none';
+    });
+  }
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+    a.addEventListener('click', function(e) {
+      var target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
