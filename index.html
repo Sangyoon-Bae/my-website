@@ -284,6 +284,11 @@
     .award-list li:last-child { border-bottom: none; }
     .award-year { min-width: 56px; color: var(--muted); font-weight: 600; }
 
+    /* ── Research grid: last lone card spans full width ── */
+    .research-grid > .research-card:last-child:nth-child(odd) {
+      grid-column: 1 / -1;
+    }
+
     /* ── Footer ────────────────────────────────────────── */
     footer {
       text-align: center;
@@ -324,6 +329,7 @@
     <div class="profile-info">
       <h1>Sangyoon Bae</h1>
       <div class="subtitle">
+        Foundation Models for Dynamical Systems &middot; Representation Learning<br>
         Ph.D. Candidate &middot; Interdisciplinary Program in Artificial Intelligence<br>
         Seoul National University
       </div>
@@ -346,10 +352,20 @@
         </a>
       </div>
       <p class="bio">
-        I work on <em>biology- and physics-grounded representation learning</em> for neuro-AI,
-        imposing strong inductive biases to enable system-aware learning,
-        improving <em>training stability</em>, <em>neural decoding</em>, and <em>causal inference</em>
-        under indirect brain measurements.
+        I study how machine learning can uncover hidden structure in
+        <em>high-dimensional, heterogeneous observations of complex dynamical systems</em>.
+        Real-world data are rarely clean signals&mdash;they are mixtures of stochastic processes,
+        measurement artifacts, and multi-scale dynamics that obscure the mechanisms generating them.
+        My research explores how this intrinsic structure can be discovered and
+        <em>explicitly embedded into model architectures</em> to build robust foundation models.
+        Neural signals serve as a demanding testbed, with broader implications for
+        <em>foundation models of dynamical systems</em> across domains such as video and multimodal sensory data.
+      </p>
+      <p class="bio" style="margin-top:10px; font-size:13px; color:var(--muted);">
+        2 sole first-author papers (ICLR 2026, Communications Biology) &middot;
+        1 co-first-author paper (ICASSP 2024) &middot;
+        6+ peer-reviewed publications &middot;
+        Models evaluated on datasets up to 49k+ subjects
       </p>
     </div>
   </section>
@@ -439,7 +455,8 @@
         <div class="pub-body">
           <div class="pub-venue">Communications Biology (in press)<span class="year-badge">2026</span></div>
           <h3>Spatiotemporal Learning of Brain Dynamics from fMRI Using Frequency-Specific Multi-Band Attention for Cognitive and Psychiatric Applications</h3>
-          <div class="pub-authors"><strong>Bae, S.</strong>, Kwon, J., Cha, J., Yoo, S.</div>
+          <div class="pub-authors"><strong>Bae, S.</strong>, Kwon, J., Yoo, S., Cha, J.<sup>†</sup></div>
+          <div style="font-size:11px; color:var(--muted); margin-bottom:4px;"><sup>†</sup>Corresponding author</div>
           <div class="pub-actions">
             <a href="#">paper</a>
             <a href="https://arxiv.org/abs/2602.09034" target="_blank">arXiv</a>
@@ -552,9 +569,16 @@
 
       <div class="research-card">
         <div class="research-tag">PIMSM</div>
-        <h3>Physics-Informed Multi-Scale Neural Decoder</h3>
-        <p>State-space model for streaming neural time-series, robust to acquisition shifts (TR changes, temporal downsampling). Includes a theoretical stability bound for decoder reliability.</p>
-        <div class="research-metric">Strong decoding at 1% supervision &middot; stable with short streaming windows</div>
+        <h3>Physics-Informed Multi-Scale State Space Model</h3>
+        <p>Physics-informed multi-scale state-space architecture for robust sequence modeling under acquisition shifts. Anchors discretization dynamics to acquisition time units and spectrum-derived temporal scales, improving latent alignment under temporal resolution changes.</p>
+        <div class="research-metric">CKA &uarr; up to 45% vs. CNN baseline &middot; 1% supervision on HCP motor decoding</div>
+      </div>
+
+      <div class="research-card">
+        <div class="research-tag">Object-LVDM</div>
+        <h3>Object-Centric Loss for Text-to-Video Generation</h3>
+        <p>Object-centric loss for text-to-video generation that improves temporal consistency by supervising persistent objects rather than frame-wise differences. Lightweight Slot Attention plug-in identifies object slots and enforces object-level temporal alignment across frames.</p>
+        <div class="research-metric">Improved temporal consistency in text-conditioned video generation</div>
       </div>
 
     </div>
