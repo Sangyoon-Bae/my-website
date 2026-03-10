@@ -319,6 +319,7 @@
   <a href="#research">Research</a>
   <a href="#experience">Experience</a>
   <a href="#education">Education</a>
+  <a href="#skills">Skills</a>
 </nav>
 
 <div class="container">
@@ -329,7 +330,7 @@
     <div class="profile-info">
       <h1>Sangyoon Bae</h1>
       <div class="subtitle">
-        Foundation Models for Dynamical Systems &middot; Representation Learning<br>
+        Scientific ML &middot; Physics-Informed Architectures &middot; Foundation Models for Dynamical Systems<br>
         Ph.D. Candidate &middot; Interdisciplinary Program in Artificial Intelligence<br>
         Seoul National University
       </div>
@@ -352,20 +353,16 @@
         </a>
       </div>
       <p class="bio">
-        I study how machine learning can uncover hidden structure in
-        <em>high-dimensional, heterogeneous observations of complex dynamical systems</em>.
-        Real-world data are rarely clean signals&mdash;they are mixtures of stochastic processes,
-        measurement artifacts, and multi-scale dynamics that obscure the mechanisms generating them.
-        My research explores how this intrinsic structure can be discovered and
-        <em>explicitly embedded into model architectures</em> to build robust foundation models.
-        Neural signals serve as a demanding testbed, with broader implications for
-        <em>foundation models of dynamical systems</em> across domains such as video and multimodal sensory data.
+        I build <em>physics-informed foundation models for scientific systems</em> &mdash;
+        embedding the structure of the data-generating process directly into architecture and training.
+        My focus is <em>scientific time-series</em>: signals acquired indirectly and often unstructured,
+        where physics-grounded inductive biases are what turn latent structure into a learning signal.
       </p>
       <p class="bio" style="margin-top:10px; font-size:13px; color:var(--muted);">
         2 sole first-author papers (ICLR 2026, Communications Biology) &middot;
         1 co-first-author paper (ICASSP 2024) &middot;
         6+ peer-reviewed publications &middot;
-        Models evaluated on datasets up to 49k+ subjects
+        Models evaluated on datasets spanning up to 49k+ subjects and 200k+ neural recordings
       </p>
     </div>
   </section>
@@ -547,38 +544,31 @@
     <div class="research-grid">
 
       <div class="research-card">
+        <div class="research-tag">PIMSM</div>
+        <h3>Physics-Informed Multi-Scale Mamba for Dynamical Systems</h3>
+        <p>Scientific time series exhibit multifractal power-law spectra &mdash; a structure single-scale SSMs ignore, causing brittleness under distribution shift. PIMSM anchors Mamba&rsquo;s discretization parameter to empirically estimated spectral structure, constructing a physics-grounded hierarchy of temporal kernels with monotonic scaling behavior where single-scale baselines plateau.</p>
+        <div class="research-metric">CKA &uarr; up to 45% &middot; OOD decoding under severe temporal truncation &middot; ~1% labeled data on HCP</div>
+      </div>
+
+      <div class="research-card">
         <div class="research-tag">POYO-CAP</div>
-        <h3>Cell-Type-Aware Pretraining for Neural Decoding</h3>
-        <p>Data-centric pretraining strategy accounting for neuron-level statistical heterogeneity in calcium imaging recordings. Prioritizes statistically predictable neurons to stabilize training.</p>
-        <div class="research-metric">SSIM 0.593 (+13%) on visual reconstruction &middot; 4&times;V100</div>
+        <h3>Curriculum Pretraining for Heterogeneous Scientific Data</h3>
+        <p>Identified a &ldquo;scaling collapse&rdquo; in SSL pretraining on heterogeneous scientific data: indiscriminate training degrades performance as noisy signals dominate the loss. Solution: use higher-order statistics (skewness/kurtosis) to identify statistically regular subsets and adopt a domain-informed curriculum &mdash; pretrain on predictable signals first, fine-tune on stochastic ones.</p>
+        <div class="research-metric">SSIM +13% &middot; 1.98&times; data efficiency &middot; 200k+ sensor recordings &middot; 4&times;V100</div>
       </div>
 
       <div class="research-card">
         <div class="research-tag">INCAMA</div>
-        <h3>Whole-Brain Causal Connectivity under Indirect Observation</h3>
-        <p>Physics-aware ML framework reconstructing latent neural activity from indirect measurements (fMRI/EEG) before performing directed causal discovery at brain-network scale.</p>
-        <div class="research-metric">~309% higher F1 in causal pathway recovery vs. DL baselines</div>
+        <h3>Physics-Aware Causal Discovery from Indirect Measurements</h3>
+        <p>Recasts scientific signal reconstruction as a physics-aware inverse problem: couples a modality-specific inversion module with a delay-sensitive causal discovery model (Mamba-backbone). Proved identifiability of delayed causal graphs from indirect measurements with a stability bound on inversion error. Zero-shot transfer to real-world data with no fine-tuning.</p>
+        <div class="research-metric">&gt;3&times; improvement vs. DL baselines &middot; zero-shot transfer (arXiv:2602.09034)</div>
       </div>
 
       <div class="research-card">
         <div class="research-tag">MBBN</div>
-        <h3>Frequency-Specific Multi-Band Attention for fMRI</h3>
-        <p>Neuroscience-informed transformer modeling multi-scale temporal structure in brain signals, enabling interpretable frequency-dependent connectivity on large clinical datasets.</p>
-        <div class="research-metric">AUROC +41% on ASD classification &middot; 49k+ subjects</div>
-      </div>
-
-      <div class="research-card">
-        <div class="research-tag">PIMSM</div>
-        <h3>Physics-Informed Multi-Scale State Space Model</h3>
-        <p>Physics-informed multi-scale state-space architecture for robust sequence modeling under acquisition shifts. Anchors discretization dynamics to acquisition time units and spectrum-derived temporal scales, improving latent alignment under temporal resolution changes.</p>
-        <div class="research-metric">CKA &uarr; up to 45% vs. CNN baseline &middot; 1% supervision on HCP motor decoding</div>
-      </div>
-
-      <div class="research-card">
-        <div class="research-tag">Object-LVDM</div>
-        <h3>Object-Centric Loss for Text-to-Video Generation</h3>
-        <p>Object-centric loss for text-to-video generation that improves temporal consistency by supervising persistent objects rather than frame-wise differences. Lightweight Slot Attention plug-in identifies object slots and enforces object-level temporal alignment across frames.</p>
-        <div class="research-metric">Improved temporal consistency in text-conditioned video generation</div>
+        <h3>Physics-Derived Multi-Band Attention for fMRI</h3>
+        <p>Scientific time series exhibit scale-free power-law spectra across distinct frequency bands &mdash; a structure standard broadband transformers ignore. MBBN derives its attention mechanism directly from this physics: decompose signals into domain-informed frequency bands, apply specialized self-attention per band. Physics-grounded pretraining loss (network communicability) further anchors optimization.</p>
+        <div class="research-metric">AUROC +41% on ASD classification &middot; 49k+ subjects (Communications Biology)</div>
       </div>
 
     </div>
@@ -594,6 +584,7 @@
         <div class="exp-detail">
           <h3>MILA &mdash; Montr&eacute;al Institute of Learning Algorithms</h3>
           <div class="role">Visiting Researcher &middot; Neuro-AI Foundation Models &amp; Biologically-Grounded Modeling<br>Advised by Prof. Blake Richards</div>
+          <div class="role" style="margin-top:6px;">Collaborated on scalable foundation models for scientific data. Developed the data-centric curriculum insight &mdash; statistical regularity as a pretraining criterion &mdash; that became the core contribution of POYO-CAP (ICLR 2026).</div>
         </div>
       </div>
 
@@ -602,6 +593,7 @@
         <div class="exp-detail">
           <h3>Brookhaven National Laboratory</h3>
           <div class="role">Visiting Researcher &middot; Quantum Machine Learning Infrastructure<br>Advised by Dr. Shinjae Yoo</div>
+          <div class="role" style="margin-top:6px;">Applied privacy-preserving techniques to federated quantum learning settings; resulted in ICASSP 2024: &ldquo;Quantum Privacy Aggregation of Teacher Ensembles (QPATE).&rdquo;</div>
         </div>
       </div>
 
@@ -610,6 +602,7 @@
         <div class="exp-detail">
           <h3>Institut de Neurosciences des Syst&egrave;mes, Aix-Marseille Universit&eacute;</h3>
           <div class="role">Visiting Researcher &middot; Adaptation of The Virtual Brain (TVB) to ADHD Progression<br>Advised by Prof. Viktor Jirsa</div>
+          <div class="role" style="margin-top:6px;">Worked on simulator-based inverse modeling with The Virtual Brain (TVB); experience directly seeded the INCAMA project on physics-aware causal discovery.</div>
         </div>
       </div>
 
@@ -641,6 +634,37 @@
     </div>
   </section>
 
+  <!-- ── Technical Skills ── -->
+  <section id="skills">
+    <div class="section-title">Technical Skills</div>
+    <div class="exp-list">
+      <div class="exp-item">
+        <div class="exp-year" style="min-width:120px;">Machine Learning</div>
+        <div class="exp-detail">
+          <div class="role">PyTorch (expert), JAX/Flax (XLA compilation &amp; JIT optimization), distributed &amp; multi-GPU training, large-scale pretraining, foundation model development (SSL, curriculum learning, scalable architectures)</div>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-year" style="min-width:120px;">Scientific ML</div>
+        <div class="exp-detail">
+          <div class="role">Physics-informed neural networks, inverse problem theory, physics-aware inductive biases, state-space models (Mamba/SSM), multifractal signal analysis, biophysical forward models, causal discovery, dynamical systems</div>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-year" style="min-width:120px;">Data Modalities</div>
+        <div class="exp-detail">
+          <div class="role">fMRI, EEG, calcium imaging, large-scale population datasets (49k+ subjects, 200k+ neurons)</div>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-year" style="min-width:120px;">Systems</div>
+        <div class="exp-detail">
+          <div class="role">Multi-GPU training (4&times; V100), HPC clusters, CUDA; biophysical simulators (TVB)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ── Awards ── -->
   <section id="awards">
     <div class="section-title">Scholarships &amp; Awards</div>
@@ -662,6 +686,15 @@
         <span>Graduate School of Artificial Intelligence Fellowship &mdash; Seoul National University</span>
       </li>
     </ul>
+  </section>
+
+  <!-- ── Mentoring ── -->
+  <section id="mentoring">
+    <div class="section-title">Mentoring</div>
+    <p style="font-size:14px; color:var(--text); line-height:1.75;">
+      Mentored 8 undergraduates, master&rsquo;s students, and high-schoolers across neuroscience and AI.
+      Led weekly reading groups and code reviews; resulted in peer-reviewed publications.
+    </p>
   </section>
 
 </div>
