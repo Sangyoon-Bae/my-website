@@ -238,6 +238,8 @@
     }
     .research-card h3 { font-size: 14px; font-weight: 700; margin-bottom: 6px; line-height: 1.4; }
     .research-card p { font-size: 13px; color: var(--muted); line-height: 1.65; }
+    .research-card ul { font-size: 13px; color: var(--muted); line-height: 1.65; padding-left: 16px; margin: 0; }
+    .research-card ul li { margin-bottom: 4px; }
     .research-metric {
       margin-top: 10px;
       font-size: 12px;
@@ -386,7 +388,7 @@
       </li>
       <li>
         <span class="news-date">2026</span>
-        <span><span class="badge gray">Preprint</span> Latent-space causal discovery from indirect neuroimaging observations released. arXiv:2602.09034.</span>
+        <span><span class="badge gray">Preprint</span> <strong>INCAMA</strong> &mdash; Latent-space causal discovery from indirect neuroimaging observations released. arXiv:2602.09034.</span>
       </li>
       <li>
         <span class="news-date">2025</span>
@@ -446,8 +448,7 @@
           <h3>Decoding Dynamic Visual Experience from Calcium Imaging via Cell-Pattern-Aware Pretraining</h3>
           <div class="pub-authors"><strong>Bae, S.</strong>, Azabou, M., Richards, B., Cha, J.</div>
           <div class="pub-actions">
-            <a href="https://arxiv.org/abs/2510.18516" target="_blank">paper</a>
-            <a href="https://iclr.cc/virtual/2026/poster/10006482" target="_blank">proceedings</a>
+            <a href="https://openreview.net/forum?id=z9kAjjRejs" target="_blank">paper</a>
           </div>
         </div>
       </div>
@@ -459,7 +460,7 @@
           <h3>Learning brain dynamics across distinct scaling regimes reveals psychiatric signatures</h3>
           <div class="pub-authors"><strong>Bae, S.</strong>, Kwon, J., Cha, J., Yoo, S.</div>
           <div class="pub-actions">
-            <a href="https://arxiv.org/abs/2503.23394" target="_blank">arXiv</a>
+            <a href="https://www.nature.com/articles/s42003-026-10011-7" target="_blank">paper</a>
           </div>
         </div>
       </div>
@@ -562,28 +563,44 @@
       <div class="research-card">
         <div class="research-tag">PIMSM</div>
         <h3>Physics-Informed Multi-Scale Mamba for Dynamical Systems</h3>
-        <p>Scientific time series exhibit multifractal power-law spectra &mdash; a structure single-scale SSMs ignore, causing brittleness under distribution shift. PIMSM anchors Mamba&rsquo;s discretization parameter to empirically estimated spectral structure, constructing a physics-grounded hierarchy of temporal kernels with monotonic scaling behavior where single-scale baselines plateau.</p>
-        <div class="research-metric">CKA &uarr; up to 45% &middot; OOD decoding under severe temporal truncation &middot; ~1% labeled data on HCP</div>
+        <ul>
+          <li>Formalizes temporal kernel mismatch as a failure mode under distribution shift; derives scale-specific SSM discretization from spectrum-estimated knee frequencies with A-scale regularization</li>
+          <li>HCP fMRI: highest representation stability (CKA 0.812) under temporal truncation; strongest low-resource accuracy at 1% supervision</li>
+          <li>Weather-5K: lowest variable-wise MAE across all horizons on held-out-station OOD forecasting (15.2% avg MAE reduction vs. best baseline)</li>
+        </ul>
+        <div class="research-metric">CKA 0.812 on HCP &middot; 15.2% MAE reduction on Weather-5K &middot; ~1% labeled data</div>
       </div>
 
       <div class="research-card">
         <div class="research-tag">POYO-CAP</div>
         <h3>Curriculum Pretraining for Heterogeneous Scientific Data</h3>
-        <p>Identified a &ldquo;scaling collapse&rdquo; in SSL pretraining on heterogeneous scientific data: indiscriminate training degrades performance as noisy signals dominate the loss. Solution: use higher-order statistics (skewness/kurtosis) to identify statistically regular subsets and adopt a domain-informed curriculum &mdash; pretrain on predictable signals first, fine-tune on stochastic ones.</p>
+        <ul>
+          <li>Identified &ldquo;scaling collapse&rdquo; in SSL pretraining on heterogeneous scientific data: indiscriminate training degrades performance as noisy signals dominate the loss</li>
+          <li>Solution: use higher-order statistics (skewness/kurtosis) to identify statistically regular subsets; domain-informed curriculum &mdash; pretrain on predictable signals first, fine-tune on stochastic ones</li>
+          <li>Unlocks monotonic scaling and 1.98&times; data efficiency; validated on 200k+ calcium imaging recordings</li>
+        </ul>
         <div class="research-metric">SSIM +13% &middot; 1.98&times; data efficiency &middot; 200k+ sensor recordings &middot; 4&times;V100</div>
       </div>
 
       <div class="research-card">
         <div class="research-tag">INCAMA</div>
         <h3>Physics-Aware Causal Discovery from Indirect Measurements</h3>
-        <p>Recasts scientific signal reconstruction as a physics-aware inverse problem: couples a modality-specific inversion module with a delay-sensitive causal discovery model (Mamba-backbone). Proved identifiability of delayed causal graphs from indirect measurements with a stability bound on inversion error. Zero-shot transfer to real-world data with no fine-tuning.</p>
+        <ul>
+          <li>Recasts causal discovery from indirect neuroimaging as a conditional identifiability problem: physics-aware inversion (HRF deconvolution, EEG source localization) coupled with delay-aware Mamba-based latent causal discovery</li>
+          <li>Proved identifiability reduction with inversion-error propagation bound</li>
+          <li>2&ndash;3&times; F1 improvement over baselines on TVB simulations; zero-shot transfer to HCP motor-task fMRI recovers canonical visuo-motor pathways with 4&times; higher recall</li>
+        </ul>
         <div class="research-metric">&gt;3&times; improvement vs. DL baselines &middot; zero-shot transfer (arXiv:2602.09034)</div>
       </div>
 
       <div class="research-card">
         <div class="research-tag">MBBN</div>
         <h3>Physics-Derived Multi-Band Attention for fMRI</h3>
-        <p>Scientific time series exhibit scale-free power-law spectra across distinct frequency bands &mdash; a structure standard broadband transformers ignore. MBBN derives its attention mechanism directly from this physics: decompose signals into domain-informed frequency bands, apply specialized self-attention per band. Physics-grounded pretraining loss (network communicability) further anchors optimization.</p>
+        <ul>
+          <li>Derives attention mechanism from the physics of scale-free power-law spectra: decomposes fMRI signals into domain-informed frequency bands, applies specialized self-attention per band</li>
+          <li>Physics-grounded pretraining loss (network communicability) anchors optimization</li>
+          <li>Trained at scale on 49,673 individuals; up to 41.36% AUROC improvement on psychiatric classification</li>
+        </ul>
         <div class="research-metric">AUROC +41% on ASD classification &middot; 49k+ subjects (Communications Biology)</div>
       </div>
 
