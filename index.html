@@ -376,6 +376,10 @@
     <ul class="news-list" id="news-list">
       <li>
         <span class="news-date">2026</span>
+        <span><span class="badge gray">Preprint</span> <strong>Structure, Dimensionality, and Distribution Shape</strong> released &mdash; what makes pretraining data transferable, and why the input pipeline decides which. arXiv:2611.04106.</span>
+      </li>
+      <li>
+        <span class="news-date">2026</span>
         <span><span class="badge gray">Preprint</span> <strong>Pretraining Shapes Spectral Structure</strong> released &mdash; architecture- and strategy-conditional prediction of OOD robustness in foundation models. arXiv:2610.09709.</span>
       </li>
       <li>
@@ -384,7 +388,7 @@
       </li>
       <li>
         <span class="news-date">2026</span>
-        <span><span class="badge green">Position</span> Joining <strong>Neurosoft Bioelectronics SA</strong> (Geneva, Switzerland) as a <strong>Machine Learning Scientist Intern</strong> &mdash; neural foundation models for brain&ndash;computer interfaces. Oct 2026 &ndash; Jan 2027.</span>
+        <span><span class="badge green">Position</span> Joining <strong>Neurosoft Bioelectronics SA</strong> (Geneva, Switzerland) as a <strong>Member of Technical Staff</strong> &mdash; neural foundation models for brain&ndash;computer interfaces. Oct 2026 &ndash; Jan 2027.</span>
       </li>
       <li>
         <span class="news-date">2026</span>
@@ -392,7 +396,7 @@
       </li>
       <li>
         <span class="news-date">2026</span>
-        <span><span class="badge gray">Preprint</span> <strong>PIMSM</strong> released &mdash; Physics-informed multi-scale Mamba for stable neural representations under distribution shift. arXiv:2605.16351.</span>
+        <span><span class="badge gray">Preprint</span> <strong>PALM</strong> released &mdash; Physically-anchored latent-timescale Mamba for stable representations under distribution shift. arXiv:2605.16351.</span>
       </li>
       <li>
         <span class="news-date">2026</span>
@@ -486,6 +490,19 @@
       </div>
 
       <div class="pub-card" data-topic="neuro-ai preprint">
+        <div class="pub-thumb">&#128506;</div>
+        <div class="pub-body">
+          <div class="pub-venue">arXiv Preprint<span class="year-badge">2026</span></div>
+          <h3>Structure, Dimensionality, and Distribution Shape: What Makes Pretraining Data Transferable, and Why the Input Pipeline Decides Which</h3>
+          <div class="pub-authors"><strong>Bae, S.</strong>, Cha, J.</div>
+          <div class="pub-actions">
+            <a href="https://arxiv.org/abs/2611.04106" target="_blank">arXiv</a>
+            <span class="preprint-label">Preprint</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub-card" data-topic="neuro-ai preprint">
         <div class="pub-thumb">&#127752;</div>
         <div class="pub-body">
           <div class="pub-venue">arXiv Preprint<span class="year-badge">2026</span></div>
@@ -515,7 +532,7 @@
         <div class="pub-thumb">&#128200;</div>
         <div class="pub-body">
           <div class="pub-venue">arXiv Preprint<span class="year-badge">2026</span></div>
-          <h3>PIMSM: Physics-Informed Multi-Scale Mamba for Stable Neural Representations under Distribution Shift</h3>
+          <h3>PALM: Physically-Anchored Latent-Timescale Mamba for Stable Representations under Distribution Shift</h3>
           <div class="pub-authors"><strong>Bae, S.</strong>, Yoo, S., Cha, J.</div>
           <div class="pub-actions">
             <a href="https://arxiv.org/abs/2605.16351" target="_blank">arXiv</a>
@@ -607,14 +624,27 @@
     <div class="research-grid">
 
       <div class="research-card">
-        <div class="research-tag">PIMSM</div>
-        <h3>Physics-Informed Multi-Scale Mamba for Dynamical Systems</h3>
+        <div class="research-tag">PALM</div>
+        <h3>Physically-Anchored Latent-Timescale Mamba for Stable Representations</h3>
         <ul>
-          <li>Formalizes temporal kernel mismatch as a failure mode under distribution shift; derives scale-specific SSM discretization from spectrum-estimated knee frequencies with A-scale regularization</li>
-          <li>HCP fMRI: highest representation stability (CKA 0.812) under temporal truncation; strongest low-resource accuracy at 1% supervision</li>
-          <li>Weather-5K: lowest variable-wise MAE across all horizons on held-out-station OOD forecasting (15.2% avg MAE reduction vs. best baseline)</li>
+          <li>Identified memory-timescale misalignment as a backbone-level failure mode of scientific foundation models under distribution shift: proved a selective SSM identifies only the product &Delta;|A|, leaving the physical timescale of its memory unreferenced</li>
+          <li>PALM disentangles A from &Delta; through dual physical anchoring &mdash; &Delta; calibrated to acquisition units at spectrum-estimated knee frequencies, A anchored via a physical memory range (&tau; = 1/|A|) &mdash; with a coupling penalty that keeps training from undoing either anchor</li>
+          <li>HCP fMRI: 11% higher representation similarity (CKA) than Mamba2 under temporal-context truncation; strongest low-resource accuracy at 1% supervision</li>
+          <li>Weather-5K: lowest error on every variable and horizon at geographically isolated stations never seen in training (15.2% below best baseline), outperforming zero-shot forecasting foundation models</li>
         </ul>
-        <div class="research-metric">CKA 0.812 on HCP &middot; 15.2% MAE reduction on Weather-5K &middot; ~1% labeled data</div>
+        <div class="research-metric">+11% CKA vs. Mamba2 &middot; 15.2% below best baseline on Weather-5K &middot; 1% labeled data (arXiv:2605.16351)</div>
+      </div>
+
+      <div class="research-card">
+        <div class="research-tag">TWS</div>
+        <h3>Semantic Tokenization for Session-Transferable Neural Decoding</h3>
+        <ul>
+          <li>Identified why neural foundation models fail on unseen sessions: per-neuron and per-session tokens form a session-specific vocabulary that collapses when the recorded neurons change</li>
+          <li>TWS segments each trial at behavioral events into states of the shared low-dimensional population manifold and tokenizes their geometry with no neuron or session embedding, yielding one token space shared by every session</li>
+          <li>On 53 held-out IBL Brain-wide Map sessions, decodes movement where a per-neuron foundation model pretrained on those very sessions decodes at chance</li>
+          <li>Frozen after mouse-only training, transfers to macaques and Utah arrays with only a linear probe (reach-direction MCC 0.23 vs. 0.01 from event time alone)</li>
+        </ul>
+        <div class="research-metric">53 held-out IBL sessions &middot; cross-species transfer (mouse &rarr; macaque) &middot; MCC 0.23 vs. 0.01 (arXiv:2610.03001)</div>
       </div>
 
       <div class="research-card">
@@ -662,7 +692,7 @@
         <div class="exp-year">2026&ndash;27</div>
         <div class="exp-detail">
           <h3>Neurosoft Bioelectronics SA</h3>
-          <div class="role">Machine Learning Scientist Intern &middot; October 2026 &ndash; January 2027<br>Remote (Republic of Korea) &middot; Geneva, Switzerland</div>
+          <div class="role">Member of Technical Staff &middot; October 2026 &ndash; January 2027<br>Remote (Republic of Korea) &middot; Geneva, Switzerland</div>
           <div class="role" style="margin-top:6px;">Developing neural foundation models and machine learning methods for brain&ndash;computer interfaces and large-scale neural recordings; contributing to NeuroAI research and software development for neural decoding applications.</div>
         </div>
       </div>
@@ -828,7 +858,7 @@
   <div class="container">
     Sangyoon Bae &nbsp;&middot;&nbsp;
     <a href="mailto:stella.sangyoon.bae@gmail.com">stella.sangyoon.bae@gmail.com</a>
-    &nbsp;&middot;&nbsp; Last updated October 2026
+    &nbsp;&middot;&nbsp; Last updated November 2026
   </div>
 </footer>
 
