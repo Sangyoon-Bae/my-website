@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sangyoon Bae</title>
+  <title>Sangyoon Bae (Stella)</title>
   <style>
     :root {
       --accent: #3a5a8c;
@@ -60,10 +60,18 @@
       width: 160px;
       height: 160px;
       border-radius: 50%;
-      object-fit: cover;
-      object-position: center top;
+      overflow: hidden;
+      position: relative;
       flex-shrink: 0;
       border: 3px solid var(--border);
+    }
+    /* Show a square crop of the portrait centred on the face, not the full frame */
+    .profile-img img {
+      position: absolute;
+      width: 177.2%;
+      height: auto;
+      left: -39%;
+      top: -6%;
     }
     .profile-info h1 { font-size: 28px; font-weight: 700; line-height: 1.2; margin-bottom: 4px; }
     .profile-info .subtitle {
@@ -315,7 +323,7 @@
 <body>
 
 <nav>
-  <span class="brand">Sangyoon Bae</span>
+  <span class="brand">Sangyoon Bae (Stella)</span>
   <a href="#about">About</a>
   <a href="#news">News</a>
   <a href="#publications">Publications</a>
@@ -329,9 +337,9 @@
 
   <!-- ── About ── -->
   <section id="about">
-    <img class="profile-img" src="Stella.jpeg?v=2" alt="Sangyoon Bae" />
+    <div class="profile-img"><img src="Stella.jpeg?v=3" alt="Sangyoon Bae (Stella)" /></div>
     <div class="profile-info">
-      <h1>Sangyoon Bae</h1>
+      <h1>Sangyoon Bae (Stella)</h1>
       <div class="subtitle">
         Scientific ML &middot; Physics-Informed Architectures &middot; Foundation Models for Dynamical Systems<br>
         Ph.D. Candidate &middot; Interdisciplinary Program in Artificial Intelligence<br>
@@ -857,7 +865,7 @@
 
 <footer>
   <div class="container">
-    Sangyoon Bae &nbsp;&middot;&nbsp;
+    Sangyoon Bae (Stella) &nbsp;&middot;&nbsp;
     <a href="mailto:stella.sangyoon.bae@gmail.com">stella.sangyoon.bae@gmail.com</a>
     &nbsp;&middot;&nbsp; Last updated November 2026
   </div>
